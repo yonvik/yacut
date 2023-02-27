@@ -8,19 +8,25 @@
 - [Flask](https://flask.palletsprojects.com/)
 - [SQLAlchemy](https://docs.sqlalchemy.org/)
 ## Установка
-- git clone git@github.com:yonvik/yacut
-- cd yacut
-- python -m venv venv
-- source venv/scripts/activate
-- python -m pip install -r requirements.txt
+```
+git clone git@github.com:yonvik/yacut
+cd yacut
+python -m venv venv
+source venv/scripts/activate
+python -m pip install -r requirements.txt
+```
 ## Создаём .env файл
-- FLASK_APP=yacut
-- FLASK_ENV=development
-- DATABASE_URI=sqlite:///db.sqlite3
-- SECRET_KEY=SECRET_KEY
+```
+FLASK_APP=yacut
+FLASK_ENV=development
+DATABASE_URI=sqlite:///db.sqlite3
+SECRET_KEY=SECRET_KEY
+```
 ## Запуск
-- flask db upgrade
-- flask run
+```
+flask db upgrade
+flask run
+```
 
 ## Автор
 [Янковский Андрей](https://github.com/yonvik)
