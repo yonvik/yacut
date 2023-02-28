@@ -17,19 +17,15 @@
               <div>
                 <div>
                   {{ form.original_link(class="form-control form-control-lg py-2 mb-3", placeholder=form.original_link.label.text) }}
-                  {% if form.original_link.errors %}
-                    {% for error in form.original_link.errors %}
-                  <p><span style="color:red">{{ error }}</span></p>
-                    {% endfor %}
-                  {% endif %}
+                  {% for error in form.original_link.errors %}
+                    <p><span style="color:red">{{ error }}</span></p>
+                  {% endfor %}
                 </div>
                 <div>
                   {{ form.custom_id(class="form-control form-control-lg py-2 mb-3", placeholder=form.custom_id.label.text) }}
-                  {% if form.custom_id.errors %}
-                    {% for error in form.custom_id.errors %}
-                  <p><span style="color:red">{{ error }}</span></p>
-                    {% endfor %}
-                  {% endif %}
+                  {% for error in form.custom_id.errors %}
+                    <p><span style="color:red">{{ error }}</span></p>
+                  {% endfor %}
                 </div>
                 <input type="submit" class="btn btn-primary" value="Создать">
               </div>
@@ -46,12 +42,12 @@
             <p class="text-center">
             <h5 class="text-center">
             {% for message in get_flashed_messages() %}
-              {{ message }}
+              <span style="color:red">{{ message }}</span>
             {% endfor %}
             {% if shortcut %}
-              {{ link_message }}
-              <a href="{{ url_for('index_view', _external=True) }}{{ shortcut }}">
-                {{ url_for('index_view', _external=True) }}{{ shortcut }}
+              Ваша новая ссылка готова
+              <a href="{{ shortcut }}">
+                {{ shortcut }}
               </a>
             {% endif %}
             </h5>

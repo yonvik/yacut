@@ -3,6 +3,12 @@ from flask import render_template, jsonify
 from . import app, db
 
 
+class ModelValidationError(Exception):
+    def __init__(self, message):
+        super().__init__()
+        self.message = message
+
+
 class InvalidAPIUsage(Exception):
     status_code = 400
 

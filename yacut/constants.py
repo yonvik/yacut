@@ -1,11 +1,15 @@
+import re
 import string
 
 SHORT_MAX_LEN = 16
 RANDOM_LINK_LENGTH = 6
+LINK_CHAR_LIMIT = 1000
+RANDOM_ITERATION = 10
 CHARACTERS_SET = string.ascii_letters + string.digits
-REGULAR = r'^[a-zA-Z\d]*$'
+VALID_PATTERN = fr'^[{re.escape(CHARACTERS_SET)}]+$'
 
 URL_LINK = 'Ссылка, которую вы хотите сократить'
+OUT_COMBINATIONS = 'Комбинации исчерпаны'
 CUSTOM_URL_LINK = 'Желаемый адрес'
 COMPLITE_LINK = 'Ссылка готова'
 MISSING_ID = 'Указанный id не найден'
