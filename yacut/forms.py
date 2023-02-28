@@ -5,7 +5,7 @@ from wtforms.validators import DataRequired, Length, Optional, URL, Regexp
 from .constants import (
     URL_LINK, CUSTOM_URL_LINK, SHORT_MAX_LEN,
     REQUIRED_FIELD, INVALID_URL_STR, INCORRECT_STRING_LENGTH,
-    VALID_PATTERN, INVALID_CHARACTERS, SUMBIT, LINK_CHAR_LIMIT)
+    VALID_PATTERN_FOR_SHORT, INVALID_CHARACTERS, SUMBIT, LINK_CHAR_LIMIT)
 
 
 class URLMapForm(FlaskForm):
@@ -29,7 +29,7 @@ class URLMapForm(FlaskForm):
                 message=INCORRECT_STRING_LENGTH.format(
                     limit=SHORT_MAX_LEN)),
             Regexp(
-                regex=VALID_PATTERN,
+                regex=VALID_PATTERN_FOR_SHORT,
                 message=INVALID_CHARACTERS),
             Optional(strip_whitespace=True)
         ]

@@ -3,10 +3,10 @@ import string
 
 SHORT_MAX_LEN = 16
 RANDOM_LINK_LENGTH = 6
-LINK_CHAR_LIMIT = 1000
+LINK_CHAR_LIMIT = 10001
 RANDOM_ITERATION = 10
 CHARACTERS_SET = string.ascii_letters + string.digits
-VALID_PATTERN = fr'^[{re.escape(CHARACTERS_SET)}]+$'
+VALID_PATTERN_FOR_SHORT = fr'^[{re.escape(CHARACTERS_SET)}]+$'
 
 URL_LINK = 'Ссылка, которую вы хотите сократить'
 OUT_COMBINATIONS = 'Комбинации исчерпаны'
@@ -22,6 +22,7 @@ INVALID_CHARACTERS = ('Недопустимые символы. '
                       'Допустимые: латинские буквы и цифры')
 INCORRECT_STRING_LENGTH = ('Длинна строки должна быть не длиннее '
                            '{limit} символов')
-DUPLICATE_SHORT_LINK = 'Имя {short_link} уже занято{end}'
+ERROR_REPEAT_NAME = 'Имя {short_link} уже занято!'
+DUPLICATE_SHORT_LINK = 'Имя "{short_link}" уже занято.'
 FIELDS_MISSING = '"{field}" является обязательным полем!'
 INVALID_URL_FORMAT = '"{url}" невалидный URL'
