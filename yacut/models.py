@@ -1,7 +1,6 @@
 import re
 from datetime import datetime
 from random import sample
-from urllib.parse import urlparse
 
 from flask import url_for
 
@@ -9,7 +8,7 @@ from . import db
 from .constants import (
     LINK_CHAR_LIMIT, SHORT_MAX_LEN, RANDOM_ITERATION, RANDOM_LINK_LENGTH,
     CHARACTERS_SET, OUT_COMBINATIONS, INVALID_URL_FORMAT, VALID_PATTERN_FOR_SHORT,
-    INVALID_SHORT_LINK, DUPLICATE_SHORT_LINK
+    INVALID_SHORT_LINK, DUPLICATE_SHORT_LINK, INVALID_MAX_SHORT_LINK, ERROR_REPEAT_NAME
 )
 from .error_handlers import ModelValidationError
 
@@ -31,26 +30,25 @@ class URLMap(db.Model):
                 sample(CHARACTERS_SET, RANDOM_LINK_LENGTH))
             if URLMap.get(random_link) is None:
                 return random_link
-        raise ModelValidationError(OUT_COMBINATIONS)
+        raise ValueError(OUT_COMBINATIONS)
 
     @staticmethod
     def create_on_validation(url, custom_id=None, validate=False):
         if validate:
             if not len(url) <= LINK_CHAR_LIMIT:
                 raise ValueError(INVALID_URL_FORMAT.format(url=url))
-        url_parts = urlparse(url)
-        if not (url_parts.netloc and url_parts.scheme in ('http', 'https')):
-            raise ModelValidationError(INVALID_URL_FORMAT.format(url=url))
         if not custom_id:
             custom_id = URLMap.get_unique_short_id()
         elif validate:
             if len(custom_id) > SHORT_MAX_LEN:
-                raise ModelValidationError(INVALID_SHORT_LINK)
+                raise ModelValidationError(INVALID_MAX_SHORT_LINK)
             if not re.match(VALID_PATTERN_FOR_SHORT, custom_id):
                 raise ModelValidationError(INVALID_SHORT_LINK)
         if URLMap.get(custom_id):
-            raise ModelValidationError(DUPLICATE_SHORT_LINK.format(
-                short_link=custom_id))
+            raise ModelValidationError(
+                ERROR_REPEAT_NAME.format(short_link=custom_id) if not validate
+                else DUPLICATE_SHORT_LINK.format(short_link=custom_id)
+            )
         urlmap = URLMap(original=url, short=custom_id)
         db.session.add(urlmap)
         db.session.commit()
